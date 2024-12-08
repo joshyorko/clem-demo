@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  dzver:
+    build: .
+    container_name: "worlds-greatest-flask-app-clemenko"
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
