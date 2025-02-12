@@ -3,54 +3,81 @@
 <head>
     <title>Latest Rancher Stack Versions</title>
     <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .table td {
+            vertical-align: middle;
+        }
+        .table a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .table a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <center>
-    <br>
-   <h2>Latest Rancher Stack Versions</h2>
-    <div class="container mt-5">
-      <table class="table table-striped w-auto">
-        <tbody>
-          <tr>
-            <td width="300"><a href="https://github.com/rancher/rke2">Rke2 - Stable</a></td>
-            <td width="300"><a href="https://github.com/rancher/rke2/releases/tag/{{rke_ver}}%2Brke2r1" target="new">{{rke_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/k3s-io/k3s">K3s - Stable</a></td>
-            <td><a href="https://github.com/k3s-io/k3s/releases/tag/{{k3s_ver}}%2Bk3s1" target="new">{{k3s_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/rancher/rancher">Rancher</a></td>
-            <td><a href="https://github.com/rancher/rancher/releases/tag/{{rancher_ver}}" target="new">{{rancher_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/longhorn/longhorn">Longhorn</a></td>
-            <td><a href="https://github.com/longhorn/longhorn/releases/tag/{{longhorn_ver}}" target="new">{{longhorn_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/neuvector/neuvector">NeuVector</a></td>
-            <td><a href="https://github.com/neuvector/neuvector/releases/tag/{{neu_ver}}" target="new">{{neu_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/harvester/harvester">Harvester</a></td>
-            <td><a href="https://github.com/harvester/harvester/releases/tag/{{harv_ver}}" target="new">{{harv_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/rancherfederal/hauler">Hauler</a></td>
-            <td><a href="https://github.com/hauler-dev/hauler/releases/tag/{{hauler_ver}}" target="new">{{hauler_ver}}</a></td>
-          </tr>
-          <tr>
-            <td><a href="https://github.com/cert-manager/cert-manager">Cert-Manager</a></td>
-            <td><a href="https://github.com/cert-manager/cert-manager/releases/tag/{{cert_ver}}" target="new">{{cert_ver}}</a></td>
-          </tr>
-        </tbody>
-      </table>
-      json : <a href="https://clem-demo-versions.yorko.io/json">https://clem-demo-versions.yorko.io/json</a><br><br>
-
-      source : <a href="https://github.com/joshyorko/clem-demo target="new">https://github.com/joshyorko/clem-demo</a><br>
-      youtubes : <a href="https://www.youtube.com/@jyorko721/videos target="new">https://www.youtube.com/@jyorko721/videos</a><br>
-      <a href="mailto:joshua.yorko@gmail.com" target="new">joshua.yorko@gmail.com</a>
+    <div class="container">
+        <h2 class="text-center">Latest Rancher Stack Versions</h2>
+        <table class="table table-striped table-responsive">
+            <tbody>
+                <tr>
+                    <td><a href="https://github.com/rancher/rke2">Rke2 - Stable</a></td>
+                    <td><a href="https://github.com/rancher/rke2/releases/tag/{{rke_ver}}%2Brke2r1" target="new">{{rke_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/k3s-io/k3s">K3s - Stable</a></td>
+                    <td><a href="https://github.com/k3s-io/k3s/releases/tag/{{k3s_ver}}%2Bk3s1" target="new">{{k3s_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/rancher/rancher">Rancher</a></td>
+                    <td><a href="https://github.com/rancher/rancher/releases/tag/{{rancher_ver}}" target="new">{{rancher_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/longhorn/longhorn">Longhorn</a></td>
+                    <td><a href="https://github.com/longhorn/longhorn/releases/tag/{{longhorn_ver}}" target="new">{{longhorn_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/neuvector/neuvector">NeuVector</a></td>
+                    <td><a href="https://github.com/neuvector/neuvector/releases/tag/{{neu_ver}}" target="new">{{neu_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/harvester/harvester">Harvester</a></td>
+                    <td><a href="https://github.com/harvester/harvester/releases/tag/{{harv_ver}}" target="new">{{harv_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/rancherfederal/hauler">Hauler</a></td>
+                    <td><a href="https://github.com/hauler-dev/hauler/releases/tag/{{hauler_ver}}" target="new">{{hauler_ver}}</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/cert-manager/cert-manager">Cert-Manager</a></td>
+                    <td><a href="https://github.com/cert-manager/cert-manager/releases/tag/{{cert_ver}}" target="new">{{cert_ver}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="footer">
+            <p>json : <a href="https://clem-demo-versions.yorko.io/json">https://clem-demo-versions.yorko.io/json</a></p>
+            <p>source : <a href="https://github.com/joshyorko/clem-demo" target="new">https://github.com/joshyorko/clem-demo</a></p>
+            <p>youtubes : <a href="https://www.youtube.com/@jyorko721/videos" target="new">https://www.youtube.com/@jyorko721/videos</a></p>
+            <p><a href="mailto:joshua.yorko@gmail.com" target="new">joshua.yorko@gmail.com</a></p>
+        </div>
     </div>
-  </center>
 </body>
 </html>
