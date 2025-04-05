@@ -2,8 +2,6 @@ version: '3.8'
 
 services:
   dzver:
-    build: .
+    image: ghcr.io/joshyorko/clem-demo
     container_name: "worlds-greatest-flask-app-clemenko"
     restart: unless-stopped
-    ports:
-      - "5000:5000"
