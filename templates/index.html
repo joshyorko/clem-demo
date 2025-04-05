@@ -1,83 +1,697 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latest Rancher Stack Versions</title>
-    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 8px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
         }
+
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem;
         }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
         .table {
-            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
         }
+
+        .table th {
+            background-color: #f1f5f9;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-bottom: 2px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+
         .table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
             vertical-align: middle;
         }
-        .table a {
-            color: #007bff;
-            text-decoration: none;
+
+        .table tr:last-child td {
+            border-bottom: none;
         }
+
+        .table tr {
+            transition: var(--transition);
+        }
+
+        .table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .table a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .table a:hover {
+            color: var(--primary-hover);
+        }
+
+        .version-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #dbeafe;
+            color: #1e40af;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .version-badge:hover {
+            background-color: #bfdbfe;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem;
+            border-radius: 4px;
+        }
+
+        .copy-btn:hover {
+            color: var(--primary);
+            background-color: #f1f5f9;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer a:hover {
+            color: var(--primary-hover);
             text-decoration: underline;
         }
-        .footer {
-            margin-top: 20px;
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
             text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .last-updated {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .table th, .table td {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --secondary: #94a3b8;
+            --background: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+        }
+
+        body.dark-mode .table th {
+            background-color: #1e293b;
+        }
+
+        body.dark-mode .table tr:hover {
+            background-color: #334155;
+        }
+
+        body.dark-mode .version-badge {
+            background-color: #1e40af;
+            color: #dbeafe;
+        }
+
+        body.dark-mode .social-link {
+            background-color: #334155;
+        }
+
+        body.dark-mode .copy-btn:hover {
+            background-color: #334155;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center">Latest Rancher Stack Versions</h2>
-        <table class="table table-striped table-responsive">
-            <tbody>
-                <tr>
-                    <td><a href="https://github.com/rancher/rke2">Rke2 - Stable</a></td>
-                    <td><a href="https://github.com/rancher/rke2/releases/tag/{{rke_ver}}%2Brke2r1" target="new">{{rke_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/k3s-io/k3s">K3s - Stable</a></td>
-                    <td><a href="https://github.com/k3s-io/k3s/releases/tag/{{k3s_ver}}%2Bk3s1" target="new">{{k3s_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/rancher/rancher">Rancher</a></td>
-                    <td><a href="https://github.com/rancher/rancher/releases/tag/{{rancher_ver}}" target="new">{{rancher_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/longhorn/longhorn">Longhorn</a></td>
-                    <td><a href="https://github.com/longhorn/longhorn/releases/tag/{{longhorn_ver}}" target="new">{{longhorn_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/neuvector/neuvector">NeuVector</a></td>
-                    <td><a href="https://github.com/neuvector/neuvector/releases/tag/{{neu_ver}}" target="new">{{neu_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/harvester/harvester">Harvester</a></td>
-                    <td><a href="https://github.com/harvester/harvester/releases/tag/{{harv_ver}}" target="new">{{harv_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/rancherfederal/hauler">Hauler</a></td>
-                    <td><a href="https://github.com/hauler-dev/hauler/releases/tag/{{hauler_ver}}" target="new">{{hauler_ver}}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="https://github.com/cert-manager/cert-manager">Cert-Manager</a></td>
-                    <td><a href="https://github.com/cert-manager/cert-manager/releases/tag/{{cert_ver}}" target="new">{{cert_ver}}</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="header">
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            <h1>Latest Rancher Stack Versions</h1>
+            <p>Track the most recent releases of the Rancher ecosystem</p>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search components...">
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Components</h2>
+                <div class="last-updated">Last updated: <span id="lastUpdated"></span></div>
+            </div>
+            <div class="table-container">
+                <table class="table" id="versionsTable">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Latest Version</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-name="rke2">
+                            <td>
+                                <a href="https://github.com/rancher/rke2" target="_blank">
+                                    <i class="fas fa-cube"></i> Rke2 - Stable
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/rancher/rke2/releases/tag/{{rke_ver}}%2Brke2r1" target="_blank" class="version-badge">
+                                    {{rke_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{rke_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="k3s">
+                            <td>
+                                <a href="https://github.com/k3s-io/k3s" target="_blank">
+                                    <i class="fas fa-server"></i> K3s - Stable
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/k3s-io/k3s/releases/tag/{{k3s_ver}}%2Bk3s1" target="_blank" class="version-badge">
+                                    {{k3s_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{k3s_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="rancher">
+                            <td>
+                                <a href="https://github.com/rancher/rancher" target="_blank">
+                                    <i class="fas fa-dharmachakra"></i> Rancher
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/rancher/rancher/releases/tag/{{rancher_ver}}" target="_blank" class="version-badge">
+                                    {{rancher_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{rancher_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="longhorn">
+                            <td>
+                                <a href="https://github.com/longhorn/longhorn" target="_blank">
+                                    <i class="fas fa-database"></i> Longhorn
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/longhorn/longhorn/releases/tag/{{longhorn_ver}}" target="_blank" class="version-badge">
+                                    {{longhorn_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{longhorn_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="neuvector">
+                            <td>
+                                <a href="https://github.com/neuvector/neuvector" target="_blank">
+                                    <i class="fas fa-shield-alt"></i> NeuVector
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/neuvector/neuvector/releases/tag/{{neu_ver}}" target="_blank" class="version-badge">
+                                    {{neu_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{neu_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="harvester">
+                            <td>
+                                <a href="https://github.com/harvester/harvester" target="_blank">
+                                    <i class="fas fa-tractor"></i> Harvester
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/harvester/harvester/releases/tag/{{harv_ver}}" target="_blank" class="version-badge">
+                                    {{harv_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{harv_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="hauler">
+                            <td>
+                                <a href="https://github.com/rancherfederal/hauler" target="_blank">
+                                    <i class="fas fa-truck"></i> Hauler
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/hauler-dev/hauler/releases/tag/{{hauler_ver}}" target="_blank" class="version-badge">
+                                    {{hauler_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{hauler_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-name="cert-manager">
+                            <td>
+                                <a href="https://github.com/cert-manager/cert-manager" target="_blank">
+                                    <i class="fas fa-certificate"></i> Cert-Manager
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/cert-manager/cert-manager/releases/tag/{{cert_ver}}" target="_blank" class="version-badge">
+                                    {{cert_ver}}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="tooltip">
+                                    <button class="copy-btn" data-version="{{cert_ver}}" aria-label="Copy version">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <span class="tooltiptext">Copy version</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class="footer">
-            <p>json : <a href="https://clem-demo-versions.yorko.io/json">https://clem-demo-versions.yorko.io/json</a></p>
-            <p>source : <a href="https://github.com/joshyorko/clem-demo" target="new">https://github.com/joshyorko/clem-demo</a></p>
-            <p>youtubes : <a href="https://www.youtube.com/@jyorko721/videos" target="new">https://www.youtube.com/@jyorko721/videos</a></p>
-            <p><a href="mailto:joshua.yorko@gmail.com" target="new">joshua.yorko@gmail.com</a></p>
+            <p>
+                <i class="fas fa-code"></i> JSON: 
+                <a href="https://clem-demo-versions.joshyorko.com/json" target="_blank">https://clem-demo-versions.joshyorko.com/json</a>
+            </p>
+            <p>
+                <i class="fab fa-github"></i> Source: 
+                <a href="https://github.com/joshyorko/clem-demo" target="_blank">https://github.com/joshyorko/clem-demo</a>
+            </p>
+            <p>
+                <i class="fab fa-youtube"></i> YouTube: 
+                <a href="https://www.youtube.com/@jyorko721/videos" target="_blank">https://www.youtube.com/@jyorko721/videos</a>
+            </p>
+            <p>
+                <i class="fas fa-envelope"></i> 
+                <a href="mailto:joshua.yorko@gmail.com">joshua.yorko@gmail.com</a>
+            </p>
+            
+            <div class="social-links">
+                <a href="https://github.com/joshyorko" class="social-link" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.youtube.com/@jyorko721" class="social-link" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://twitter.com" class="social-link" target="_blank" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://linkedin.com" class="social-link" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Set current date
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#versionsTable tbody tr');
+            
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name').toLowerCase();
+                const text = row.textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Copy to clipboard functionality
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const version = this.getAttribute('data-version');
+                navigator.clipboard.writeText(version).then(() => {
+                    const icon = this.querySelector('i');
+                    const originalClass = icon.className;
+                    
+                    // Change icon to checkmark
+                    icon.className = 'fas fa-check';
+                    
+                    // Add pulse animation
+                    this.classList.add('pulse');
+                    
+                    // Change tooltip text
+                    const tooltip = this.parentElement.querySelector('.tooltiptext');
+                    tooltip.textContent = 'Copied!';
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        icon.className = originalClass;
+                        this.classList.remove('pulse');
+                        tooltip.textContent = 'Copy version';
+                    }, 2000);
+                });
+            });
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+            body.classList.add('dark-mode');
+            icon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
 </body>
 </html>
