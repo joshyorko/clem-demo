@@ -1,7 +1,10 @@
-version: '3.8'
+name: clem-demo
 
 services:
   dzver:
+    build:
+      context: .
+      # dockerfile: Dockerfile  # Optional: only if your Dockerfile has a custom name or is in a subdirectory
     image: ghcr.io/joshyorko/clem-demo
     container_name: "worlds-greatest-flask-app-clemenko"
     restart: unless-stopped
