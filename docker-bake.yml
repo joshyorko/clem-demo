@@ -1,0 +1,6 @@
+services:
+  clem-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/joshyorko/clem-demo
