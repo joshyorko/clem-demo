@@ -6,7 +6,7 @@ import requests
 import json
 
 version = "1.0"
-app = Flask(__name__)
+app = Flask(__name__, static_folder='assets', static_url_path='/assets')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})  # Basic in-memory caching
 
 gh_token = os.getenv('GITHUB2_TOKEN')
