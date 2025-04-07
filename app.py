@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, send_from_directory
 from flask_caching import Cache
 
 import os
@@ -6,7 +6,15 @@ import requests
 import json
 
 version = "1.0"
-app = Flask(__name__, static_folder='assets', static_url_path='/assets')
+app = Flask(__name__)
+app.static_folder = 'static'  # Default static folder
+app.static_url_path = '/static'  # URL path for static files
+
+# Register assets folder as an additional static folder
+@app.route('/assets/<path:filename>')
+def assets(filename):
+    return send_from_directory('assets', filename)
+
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})  # Basic in-memory caching
 
 gh_token = os.getenv('GITHUB2_TOKEN')
