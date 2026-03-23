@@ -75,6 +75,10 @@ def json_all_the_things():
 
     return jsonify({'k3s stable': k3s_out, 'rke2 stable': rke_out, 'cert-manager': cert_out, 'rancher': rancher_out, 'longhorn': longhorn_out, 'neuvector': neuvector_out, 'harvester': harvester_out, 'hauler': hauler_out}), 200
 
+@app.route('/up', methods=['GET'])
+def up():
+    return jsonify({'status': 'ok', 'version': version}), 200
+
 @app.route('/', methods=['GET'])
 @cache.cached(timeout=1800)  # Cache for 1 hour
 def curl_all_the_things():
