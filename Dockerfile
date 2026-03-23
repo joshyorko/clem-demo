@@ -11,6 +11,8 @@ RUN pip3 install --no-cache-dir --upgrade pip --break-system-packages && \
 # Copy the rest of the application
 COPY . .
 
-EXPOSE 5000
+ENV PORT=80
+
+EXPOSE 80
 
 CMD ["python3", "app.py"]
